@@ -61,6 +61,8 @@ class ProductService {
 					productAttributeValue.attribute= attr;
 					productAttributeValue.properties = productAttributeValueMap;
 					
+					println productAttributeValue.toString();
+					
 					//part.thing = instance
 					instance.addToProductAttributeValues( productAttributeValue )
 				}

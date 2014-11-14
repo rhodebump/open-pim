@@ -60,6 +60,9 @@ class ProductAttributeValue {
 	
 	//added the following to see if this will allow the removeFrom to work
 	public int hashCode() {
+		if (id == null) {
+			return super.hashCode();
+		}
 		return id.intValue();
 	}
 	
