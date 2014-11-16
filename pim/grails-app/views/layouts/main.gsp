@@ -17,9 +17,7 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
-		
-			<g:link controller="productPicker" >Product Search</g:link>
+	<div id="forgebizLogo" role="banner"><a href="/pim"><asset:image src="forgebiz-logo-forge-125.png" alt="forgebiz"/></a></div>
 			
 			
 		<g:layoutBody/>

@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>/home/prhodes/local/dev/forgebiz/pim/target/work/plugins</location>
+			<location>/home/prhodes/local/dev/open-pim/pim/target/work/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -16,12 +16,25 @@ hibernate {
 
 // environment specific settings
 environments {
-    development {
+    developmentxx {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
+	
+	development {
+		dataSource {
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+			url = "jdbc:mysql://localhost/openpim_v1?useUnicode=true&characterEncoding=utf-8"
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = "openpim"
+			password = "openpim404"
+			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+		}
+	}
+	
+	
     test {
         dataSource {
             dbCreate = "update"
@@ -31,7 +44,12 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            //url = "jdbc:mysql://spotmouthdbhost/spotmouth_georepo_p3?useUnicode=true&characterEncoding=utf-8"
+			url = "jdbc:mysql://localhost/openpim_v1?useUnicode=true&characterEncoding=utf-8"
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = "openpim"
+			password = "openpim404"
+			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

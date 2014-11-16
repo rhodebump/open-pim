@@ -65,8 +65,8 @@ class SolrSyncJob {
 		doc.addField("sku_s", product.sku);
 		doc.addField("name", product.name);
 		doc.addField("product_id_l", product.id);
-		
-		
+		doc.addField("description", product.metaDescription);
+		doc.addField("manu",product.manufacturer.name);
 		for(ProductAttributeValue pav:product.productAttributeValues) {
 			String attrName = pav.attribute.indexName;
 			doc.addField(attrName, pav.indexValue);

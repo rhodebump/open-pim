@@ -5,6 +5,7 @@ class Product {
 
 	//one can create set of attributes that will apply to this product
 	//ProductAttributeSet productAttributeSet
+	Manufacturer manufacturer
 	
 	String name
 	String sku
@@ -15,16 +16,18 @@ class Product {
 	
 	Boolean indexed = false;
 	
-	//Country countryOfManufacturer
 	
 
 	static constraints = {
-		dateCreated nullable:true, display:true
-		lastUpdate nullable:true, display:true
+
 		name blank: false, nullable: false
-		sku blank: false, nullable: false
+		sku blank: false, nullable: false, unique: true
 		metaTitle nullable:true, blank:true
 		metaDescription nullable:true, blank:true
+		
+		dateCreated nullable:true, display:true
+		lastUpdate nullable:true, display:true
+		
 		
 	}
 }

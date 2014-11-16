@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Product)
-class ProductSpec extends Specification {
+@TestFor(Manufacturer)
+class ManufacturerSpec extends Specification {
 
     def setup() {
     }
@@ -16,15 +16,5 @@ class ProductSpec extends Specification {
     }
 
     void "test something"() {
-		
-		given: "test given"
-		println "first given"
-
-		when: "test when"
-		println "first when"
-
-		then: "test then"
-		
-		
     }
 }

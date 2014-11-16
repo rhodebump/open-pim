@@ -32,7 +32,7 @@ class ProductQuantity {
 	}
 
 	String getCartLink() {
-		String vendor = getVendor();
+		String vendor = getManufacturer();
 		if (vendor.equals("Gare")) {
 			//need to get the sku, strip the G
 //			Attribute sku = Attribute.findByName("sku");
@@ -82,7 +82,6 @@ class ProductQuantity {
 	}
 	
 	
-
 	String getName() {
 		def name = productDocument.getFieldValue("name");
 		if (name == null) {
@@ -91,6 +90,29 @@ class ProductQuantity {
 		return name;
 		
 	}
+	
+	
+
+	String getDescription() {
+		def description = productDocument.getFieldValue("description");
+		if (description == null) {
+			return "";
+		}
+		return description;
+		
+	}
+	
+	
+	String getImageUrl() {
+		def name = productDocument.getFieldValue("product_image_url");
+		if (name == null) {
+			return "/pim/assets/120px-No_image_available.svg.png";
+		}
+		//  http://localhost:8080/pim/assets/forgebiz-logo-forge-125.png
+		return name;
+		
+	}
+	
 	
 	
 	Integer getProductId() {
@@ -130,11 +152,11 @@ class ProductQuantity {
 	}
 
 
-	String getVendor() {
-		def vendor = productDocument.getFieldValue("vendor_s");
-		if (vendor == null) {
+	String getManufacturer() {
+		def manu = productDocument.getFieldValue("manu");
+		if (manu == null) {
 			return "";
 		}
-		return vendor;
+		return manu;
 	}
 }

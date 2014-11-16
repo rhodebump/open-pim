@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
+		<title>Welcome to Open PIM</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
@@ -81,8 +81,19 @@
 		</style>
 	</head>
 	<body>
+	
+		<g:form controller="search">
+		<label>Search</label>
+		<g:textField name="keywords" value="" />
+
+
+
+		<g:actionSubmit action="search" value="Search" />
+	</g:form>
+	
+	
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
+		<div id="status" role="complementary"  style="display:none">>
 			<h1>Application Status</h1>
 			<ul>
 				<li>App version: <g:meta name="app.version"/></li>
@@ -103,13 +114,19 @@
 			</ul>
 		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+			<h1>Welcome to Open PIM</h1>
+				<div id="controller-list" role="navigation">
+					<ul>
+						<li class="controller"><g:link controller="product">Products</g:link></li>
+						<li class="controller"><g:link controller="attribute">Attributes</g:link></li>
+							<li class="controller"><g:link controller="setting">Settings</g:link></li>	
+								<li class="controller"><g:link controller="productPicker">Product Picker</g:link></li>
+								
+					</ul>
+				
+				</div>
 
-			<div id="controller-list" role="navigation">
+			<div id="controller-list" role="navigation" style="display:none">
 				<h2>Available Controllers:</h2>
 				<ul>
 					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
