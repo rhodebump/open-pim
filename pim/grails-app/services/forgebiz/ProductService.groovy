@@ -47,9 +47,9 @@ class ProductService {
 					manufacturer.save(failOnError:true)
 				}
 			}else {
-				throw new Exception("need to product an attribute name or id");
+				throw new Exception("need manufacturer name or id");
 			}
-			product.manufacturer = manufacturer;
+			instance.manufacturer = manufacturer;
 			if (content['productAttributeValues']) {
 				content['productAttributeValues']?.each { productAttributeValueMap ->
 					
@@ -71,7 +71,7 @@ class ProductService {
 					}
 					//need to find existing product attribute if it exists
 					//there is only one pav per attr, so we need to update the pav if it already exists, or create a new one
-					def productAttributeValue = getProductAttributeValue(product,attr);
+					def productAttributeValue = getProductAttributeValue(instance,attr);
 					productAttributeValue.properties = productAttributeValueMap;
 					instance.addToProductAttributeValues( productAttributeValue )
 				}
@@ -95,7 +95,7 @@ class ProductService {
 		}
 		//none found, let's create a new one
 		ProductAttributeValue pav= new ProductAttributeValue();
-		pav.attribute= attr;
+		pav.attribute= attribute;
 		return pav;
 		
 	}

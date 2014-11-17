@@ -90,6 +90,7 @@ class ProductQuantity {
 		return name;
 		
 	}
+
 	
 	
 
@@ -103,8 +104,15 @@ class ProductQuantity {
 	}
 	
 	
+	String getDetailUrl() {
+		def detail_url = productDocument.getFieldValue("detail_url_s");
+		return detail_url;
+		
+	}
+	
+	
 	String getImageUrl() {
-		def name = productDocument.getFieldValue("product_image_url");
+		def name = productDocument.getFieldValue("product_image_url_s");
 		if (name == null) {
 			return "/pim/assets/120px-No_image_available.svg.png";
 		}
@@ -113,7 +121,14 @@ class ProductQuantity {
 		
 	}
 	
-	
+	Integer getNumberSold() {
+		def number_sold_i = productDocument.getFieldValue("number_sold_i");
+		if (number_sold_i == null) {
+			return 0;
+		}
+		return number_sold_i;
+		
+	}
 	
 	Integer getProductId() {
 		def productId = productDocument.getFieldValue("product_id_l");
@@ -144,7 +159,7 @@ class ProductQuantity {
 	
 	String getSku() {
 
-		def sku = productDocument.getFieldValue("sku_s");
+		def sku = productDocument.getFieldValue("sku");
 		if (sku == null) {
 			return "";
 		}

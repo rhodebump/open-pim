@@ -62,6 +62,7 @@ class SolrSyncJob {
 
 		SolrInputDocument doc = new SolrInputDocument()
 		doc.addField("id", "product_" + product.id);
+		doc.addField("sku", product.sku);
 		doc.addField("sku_s", product.sku);
 		doc.addField("name", product.name);
 		doc.addField("product_id_l", product.id);

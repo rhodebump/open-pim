@@ -2,6 +2,9 @@ package forgebiz
 
 class Sort {
 
+	
+	Query query
+	
     static constraints = {
 		orderby(inList:["Ascending","Descending"])
 		

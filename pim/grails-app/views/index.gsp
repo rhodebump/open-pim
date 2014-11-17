@@ -119,6 +119,8 @@
 					<ul>
 						<li class="controller"><g:link controller="product">Products</g:link></li>
 						<li class="controller"><g:link controller="attribute">Attributes</g:link></li>
+							<li class="controller"><g:link controller="productAttributeValue">Product Attribute Values</g:link></li>
+							
 							<li class="controller"><g:link controller="setting">Settings</g:link></li>	
 								<li class="controller"><g:link controller="productPicker">Product Picker</g:link></li>
 								

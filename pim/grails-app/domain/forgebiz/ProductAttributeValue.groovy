@@ -52,10 +52,36 @@ class ProductAttributeValue {
 	
 
 	static constraints = {
+		product nullable:false
+		attribute unique:['product']
 		stringValue nullable:true
 		doubleValue nullable:true
 		integerValue nullable:true
-		attribute unique:['product']
+		
+		
+		
+		integerValue( validator: { val, obj ->
+			//now that the integer is a primitive when it is passed in, it's always going to be positive
+			//and we have a test that is passing in a string instead, so let's verify that the string (and all other values)
+			//have not been set
+			
+		
+			if (obj.attribute.type == 'Integer') {
+				
+				
+				//if the type is a Integer, everything else should be null/empty
+				if (obj.stringValue) {
+					return false;
+				}else if (obj.doubleValue) {
+					return false;
+				}
+				
+				println "attribute type is Integer=" +  obj.integerValue
+				return (obj.integerValue != null)
+			}
+		})
+		
+
 	}
 	
 	//added the following to see if this will allow the removeFrom to work

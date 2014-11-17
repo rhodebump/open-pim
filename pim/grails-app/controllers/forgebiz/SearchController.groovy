@@ -32,7 +32,7 @@ class SearchController {
 		List<ProductQuantity> productQuantities = convert(listresults);
 
 		Long resultCount =listresults.getNumFound();
-		render(view: "/search/results", model: [productQuantities: productQuantities,resultCount:resultCount])
+		render(view: "/search/results", model: [productQuantities: productQuantities,resultCount:resultCount, queryResponse:response])
 	}
 
 	private List<ProductQuantity> convert(SolrDocumentList listresults) {

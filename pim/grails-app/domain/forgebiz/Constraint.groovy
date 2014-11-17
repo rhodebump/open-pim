@@ -2,6 +2,8 @@ package forgebiz
 
 class Constraint {
 
+	Query query
+	
 	def String toString() {
 		StringBuffer sb = new StringBuffer();
 		if (attribute != null) {

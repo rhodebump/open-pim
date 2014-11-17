@@ -1,9 +1,11 @@
+
 import forgebiz.*
 
 class BootStrap {
 
 	def init = { servletContext ->
 
+		createQuery();
 		User user = User.findByUsername('admin');
 		if (user == null) {
 			def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
@@ -17,8 +19,8 @@ class BootStrap {
 		}
 		createAttributes();
 
-		createConstraints();
-		createSorts();
+		
+		
 	}
 	def destroy = {
 	}
@@ -44,33 +46,38 @@ class BootStrap {
 		attribute.type = type;
 		attribute.save();
 	}
-	private void createConstraints() {
-
-		createConstraint("size","Small", 10.0);
-		createConstraint("size","Medium", 65.0);
-		createConstraint("size","Large", 15.0);
-		createConstraint("size","Extra Large", 10.0);
+	private void createQuery() {
+		Query query = new Query();
+		query.name = "Most profitable item mix with correct size distribution";
+		createConstraint("size","Small", 10.0,query);
+		createConstraint("size","Medium", 65.0,query);
+		createConstraint("size","Large", 15.0,query);
+		createConstraint("size","Extra Large", 10.0,query);
+		createSorts(query);
+		query.save(failOnError:true);
 	}
 
-	private void createConstraint(String attrname,String attrvalue,double percent){
+	private void createConstraint(String attrname,String attrvalue,double percent,Query query){
 		Constraint constraint = new Constraint();
 		Attribute attr = Attribute.findByName(attrname);
 		constraint.attribute = attr;
 		constraint.attributeValue = attrvalue;
 		constraint.percentage = percent;
-		constraint.save();
+		query.addToQconstraints(constraint);
+		//constraint.save();
 	}
 
-	private void createSorts() {
+	private void createSorts(Query query) {
 
-		createSort("rank","Ascending");
+		createSort("number_sold","Descending",query);
 	}
 
-	private void createSort(String attributeName,String orderby) {
+	private void createSort(String attributeName,String orderby,Query query) {
 		Sort sortx = new Sort();
-		Attribute attr = Attribute.findByName("number_sold");
+		Attribute attr = Attribute.findByName(attributeName);
 		sortx.attribute = attr;
 		sortx.orderby = orderby;
-		sortx.save();
+		query.addToQsorts(sortx);
+		//sortx.save();
 	}
 }

@@ -16,7 +16,12 @@ class Product {
 	
 	Boolean indexed = false;
 	
-	
+	def String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("${name} ");
+		
+		return sb.toString();
+	}
 
 	static constraints = {
 

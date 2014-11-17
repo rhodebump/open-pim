@@ -18,11 +18,11 @@
 		<g:actionSubmit action="search" value="Search" />
 	</g:form>
 
-
+	<openpim:showFacets queryResponse="${queryResponse}" />
 
 	<table>
 		<g:each in="${productQuantities}" status="i" var="pq">
-			<g:formatProduct productQuantity="${pq}" i="${i}" />
+		<openpim:formatProductQuantity productQuantity="${pq}" i="${i}" />
 
 		</g:each>
 

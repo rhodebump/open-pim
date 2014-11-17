@@ -13,6 +13,8 @@ import grails.plugin.springsecurity.annotation.Secured
 @Secured(['ROLE_ADMIN'])
 class ProductPickerController {
 
+	//org.hibernate.collection.internal.PersistentSet
+	
 	
 	public static ProductAttributeValue getAttributeValue(Product product, Attribute attribute) {
 		for(ProductAttributeValue attributeValue:product.productAttributeValues) {
@@ -82,17 +84,21 @@ class ProductPickerController {
 
 	}
 
-	def runcalctotal() {
-		session.totalProductCount =  Integer.parseInt(params.totalProductCount);
-		session.totalProductSpend = null;
-		redirect(action: "calc")
+//	def runcalctotal() {
+//		session.totalProductCount =  Integer.parseInt(params.totalProductCount);
+//		session.totalProductSpend = null;
+//		redirect(action: "calc")
+//
+//
+//	}
 
-
+	def getQueries() {
+		
+		return Query.findAllOrderByName();
+		
 	}
 
-
-
-	private Constraint getDriverConstraint(List<Constraint> allConstraints) {
+	private Constraint getDriverConstraint(def allConstraints) {
 		for(Constraint constraint:allConstraints) {
 			if (constraint.percentage != null) {
 
@@ -107,7 +113,11 @@ class ProductPickerController {
 		render(view: "/productpicker/index", model: [results: results])
 	}
 	def calc(){
-
+		session.totalProductSpend = Integer.parseInt(params.totalProductSpend);
+		session.totalProductCount = null;
+		
+		Query myquery = Query.findById(params.queryId);
+		
 		int totalProductCount = 0;
 		if (session.totalProductCount) {
 			totalProductCount = session.totalProductCount;
@@ -130,9 +140,12 @@ class ProductPickerController {
 
 		List<Attribute> allAttributes = Attribute.findAll();
 
-		List<Sort> sorts = Sort.findAll();
-
-		List<Constraint> allConstraints = Constraint.findAll();
+		def sorts = myquery.qsorts;
+		
+		//List<Sort> sorts = Sort.findAll();
+		def allConstraints = myquery.qconstraints;
+		
+		//List<Constraint> allConstraints = Constraint.findAll();
 		Constraint driverConstraint = getDriverConstraint(allConstraints);
 
 		Attribute driverAttr = driverConstraint.attribute;
@@ -166,7 +179,7 @@ class ProductPickerController {
 			}
 			for(Sort sort:sorts) {
 				SolrQuery.ORDER order = null;
-				if (sort.orderby == 'desc') {
+				if (sort.orderby == 'Descending') {
 					order = ORDER.desc;
 				} else {
 					order = ORDER.asc;
@@ -312,7 +325,7 @@ class ProductPickerController {
 	}
 
 
-	private Map<Attribute,List<Constraint>>  getAttributeConstraintsMap(List<Constraint> allConstraints) {
+	private Map<Attribute,List<Constraint>>  getAttributeConstraintsMap(def allConstraints) {
 		Map<Attribute,List<Constraint>> attributeConstraintsMap = new HashMap<Attribute,List<Constraint>>();
 		Set<Attribute> attributes = new HashSet<Attribute>();
 		for (Constraint constraint:allConstraints) {
