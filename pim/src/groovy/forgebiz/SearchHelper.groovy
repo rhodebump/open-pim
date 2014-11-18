@@ -60,8 +60,6 @@ class SearchHelper {
 		query.setFacetMinCount(1);
 		
 		println query.toString();
-		//query = query.addSortField(searchParameters.getSortKey2(), order)
-		//QueryResponse rsp = server.query(query);
 		
 		return dosearch(query);
 		

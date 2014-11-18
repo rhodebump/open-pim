@@ -17,5 +17,14 @@ class Sort {
 	static mapping = {
 		table 'sorts'
 	}
+	
+	
+	def String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Sort:  ${attribute.toString()} ${orderby}");
+		
+		return sb.toString();
+	}
+	
 
 }

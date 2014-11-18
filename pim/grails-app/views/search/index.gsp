@@ -11,7 +11,7 @@
 
 
 		<label>Search</label>
-		<g:textField name="keywords" value="" />
+		<g:textField name="q" value="" />
 		<br />
 
 

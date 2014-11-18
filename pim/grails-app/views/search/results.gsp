@@ -11,14 +11,14 @@
 
 
 		<label>Search</label>
-		<g:textField name="keywords" value="" />
+		<g:textField name="q" value="${q}" />
 
 
 
 		<g:actionSubmit action="search" value="Search" />
 	</g:form>
 
-	<openpim:showFacets queryResponse="${queryResponse}" />
+	<openpim:showFacets2 queryResponse="${queryResponse}" />
 
 	<table>
 		<g:each in="${productQuantities}" status="i" var="pq">
@@ -28,7 +28,7 @@
 
 	</table>
 	<div class="pagination">
-	<g:paginate controller="search" action="search" total="${resultCount}" params="[keywords:params.keywords]" />
+	<g:paginate controller="search" action="search" total="${resultCount}" params="[q:params.q,fq:fq]" />
 	
 	</div>
 </body>

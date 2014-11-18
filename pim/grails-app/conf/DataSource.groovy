@@ -25,7 +25,7 @@ environments {
 	
 	development {
 		dataSource {
-			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+			dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:mysql://localhost/openpim_v1?useUnicode=true&characterEncoding=utf-8"
 			driverClassName = "com.mysql.jdbc.Driver"
 			username = "openpim"

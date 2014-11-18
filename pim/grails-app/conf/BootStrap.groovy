@@ -5,7 +5,7 @@ class BootStrap {
 
 	def init = { servletContext ->
 
-		createQuery();
+		
 		User user = User.findByUsername('admin');
 		if (user == null) {
 			def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
@@ -19,7 +19,7 @@ class BootStrap {
 		}
 		createAttributes();
 
-		
+		createQuery();
 		
 	}
 	def destroy = {
@@ -28,7 +28,7 @@ class BootStrap {
 
 	private void createAttributes() {
 
-		createAttribute("vendor","String");
+		createAttribute("manufacturer","String");
 		createAttribute("number_sold","Integer");
 		//createAttribute("sum");
 		createAttribute("cost","Double");
@@ -53,16 +53,25 @@ class BootStrap {
 		createConstraint("size","Medium", 65.0,query);
 		createConstraint("size","Large", 15.0,query);
 		createConstraint("size","Extra Large", 10.0,query);
+		
+		createConstraint("vendor","Gare", null,query);
+		createConstraint("vendor","Chesapeake", null,query);
+		
+		createConstraint("size","Extra Large", 10.0,query);
+		
 		createSorts(query);
 		query.save(failOnError:true);
 	}
 
-	private void createConstraint(String attrname,String attrvalue,double percent,Query query){
+	private void createConstraint(String attrname,String attrvalue,Double percent,Query query){
 		Constraint constraint = new Constraint();
 		Attribute attr = Attribute.findByName(attrname);
 		constraint.attribute = attr;
 		constraint.attributeValue = attrvalue;
-		constraint.percentage = percent;
+		if (percent) {
+			constraint.percentage = percent;
+		}
+		
 		query.addToQconstraints(constraint);
 		//constraint.save();
 	}

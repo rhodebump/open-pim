@@ -23,16 +23,23 @@ class SearchController {
 	
 	
 	def search() {
-		String keywords = params.keywords;
-		SolrQuery query = new SolrQuery();
-		query.setQuery(keywords);
+		def query = new SolrQuery("${params.q}");
+		List fq = [];
+		if(params.fq) {
+			query.addFilterQuery(params.fq)
+			if(params.fq instanceof String)
+			  fq << params.fq
+			else
+			  fq = params.fq
+		  }
+		
 		SearchParameters searchParameters = new SearchParameters();
 		QueryResponse response = SearchHelper.search(searchParameters,query);
 		SolrDocumentList listresults = response.getResults();
 		List<ProductQuantity> productQuantities = convert(listresults);
 
 		Long resultCount =listresults.getNumFound();
-		render(view: "/search/results", model: [productQuantities: productQuantities,resultCount:resultCount, queryResponse:response])
+		render(view: "/search/results", model: [productQuantities: productQuantities,resultCount:resultCount, queryResponse:response,q:params.q, fq:fq])
 	}
 
 	private List<ProductQuantity> convert(SolrDocumentList listresults) {

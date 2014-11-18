@@ -1,6 +1,9 @@
 
 <g:if test="${queryResponse != null}">
-facets
+
+
+                    
+                    
 	<g:if test="${! queryResponse?.facetFields?.isEmpty()}">
 		<div id="facets">
 
@@ -28,7 +31,7 @@ facets
 							<g:set var="facetFieldName" value="${facetField.getName()}" />
 							<li><g:link title="filter by ${facetFieldCount.getName()}"
 									action="search"
-									params="[(facetField.name):facetFieldCount.getName()]">
+									params="[(facetField.name):facetFieldCount.getName(),q:params.q]">
 									${facetFieldCount.getName()}
 								</g:link> (${facetFieldCount.getCount()})</li>
 						</g:each>
