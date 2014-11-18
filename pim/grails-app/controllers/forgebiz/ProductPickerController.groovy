@@ -195,7 +195,7 @@ class ProductPickerController {
 		}
 
 
-		render(view: "/productpicker/index", model: [productQuantities: results])
+		render(view: "/productpicker/index", model: [productQuantities: results,queryId:params.queryId])
 
 	}
 

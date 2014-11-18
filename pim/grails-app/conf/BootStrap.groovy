@@ -5,7 +5,7 @@ class BootStrap {
 
 	def init = { servletContext ->
 
-		
+
 		User user = User.findByUsername('admin');
 		if (user == null) {
 			def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
@@ -19,8 +19,25 @@ class BootStrap {
 		}
 		createAttributes();
 
-		createQuery();
-		
+		println "query1";
+		Query query1 = createQuery("Most profitable item mix with correct size distribution, Gare,Chesapeake");
+		println "constraint 1";
+		createConstraint("manufacturer","Gare",query1);
+		createConstraint("manufacturer","Chesapeake",query1);
+
+
+		query1.errors.allErrors.each { println it }
+
+
+		query1.save(failOnError:true);
+
+		Query query2  =createQuery("Most profitable item mix with correct size distribution, Gare Only");
+		createConstraint("manufacturer","Gare",query2);
+		query2.save(failOnError:true);
+
+		Query query3 = createQuery("Most profitable item mix with correct size distribution, Chesapeake Only");
+		createConstraint("manufacturer","Chesapeake",query3);
+		query3.save(failOnError:true);
 	}
 	def destroy = {
 	}
@@ -46,34 +63,36 @@ class BootStrap {
 		attribute.type = type;
 		attribute.save();
 	}
-	private void createQuery() {
+	private Query createQuery(String name) {
 		Query query = new Query();
-		query.name = "Most profitable item mix with correct size distribution";
-		createConstraint("size","Small", 10.0,query);
-		createConstraint("size","Medium", 65.0,query);
-		createConstraint("size","Large", 15.0,query);
-		createConstraint("size","Extra Large", 10.0,query);
-		
-		createConstraint("vendor","Gare", null,query);
-		createConstraint("vendor","Chesapeake", null,query);
-		
-		createConstraint("size","Extra Large", 10.0,query);
-		
+		query.name = name;
+		createConstraint("size","Small", ,query).percentage = 10.0;
+		createConstraint("size","Medium", query).percentage = 65.0;
+		createConstraint("size","Large",query).percentage = 15.0;
+		createConstraint("size","Extra Large",query).percentage = 10.0;
+
 		createSorts(query);
-		query.save(failOnError:true);
+		return query;
 	}
 
-	private void createConstraint(String attrname,String attrvalue,Double percent,Query query){
+	private Constraint createConstraint(String attrname,String attrvalue,Query query){
 		Constraint constraint = new Constraint();
 		Attribute attr = Attribute.findByName(attrname);
+		if (attr == null) {
+			throw new IllegalArgumentException("attribute name not found:" + attrname);
+		}
 		constraint.attribute = attr;
 		constraint.attributeValue = attrvalue;
-		if (percent) {
-			constraint.percentage = percent;
-		}
-		
+
+
+
 		query.addToQconstraints(constraint);
-		//constraint.save();
+
+		constraint.validate();
+		constraint.errors.allErrors.each { println it }
+
+
+		return constraint;
 	}
 
 	private void createSorts(Query query) {
