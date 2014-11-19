@@ -191,26 +191,19 @@ class ProductPickerController {
 
 			List<ProductQuantity> results2 = filter(listresults,totalProductCount,totalProductSpend, constraintCostSum,constraintCount,constraint);
 			results.addAll(results2);
-			//constraintDocs.put(constraint,results);
 		}
-
 
 		render(view: "/productpicker/index", model: [productQuantities: results,queryId:params.queryId])
 
 	}
 
 	private List<ProductQuantity> filter(SolrDocumentList listresults,int totalProductCount,int totalProductSpend, Map<Constraint,Double> constraintCostSum,Map<Constraint,Integer> constraintCount,Constraint constraint) {
-
-
-
 		List<SolrDocument> results = new ArrayList<SolrDocument>();
 		println "there are " + listresults.size() + " results";
 		for (int i = 0; i < listresults.size(); ++i) {
 			ProductQuantity productQuantity = new ProductQuantity();
 			productQuantity.productDocument = listresults.get(i);
 			boolean vps = isValid( productQuantity,totalProductCount,  totalProductSpend, constraintCostSum,constraintCount,constraint );
-			println("vps=" + vps);
-
 			if (vps) {
 				results.add(productQuantity);
 
@@ -237,11 +230,8 @@ class ProductPickerController {
 			if (sb.length() > 0) {
 				sb.append(" OR ");
 			}
-
 			sb.append(constraint.attributeValue);
-
 		}
-
 		//fq=cat:(computers OR phones)
 		query.addFilterQuery(attr.getIndexName() + ":(" +  sb.toString() + ")");
 
